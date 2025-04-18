@@ -152,7 +152,10 @@
     .contact-form {
       display: flex;
       flex-direction: column;
-      max-width: 600px;
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      align-items: center;
     }
 
     input, textarea {
@@ -160,6 +163,8 @@
       padding: 0.75rem;
       border: none;
       border-radius: 8px;
+      width: 100%;
+      max-width: 100%;
     }
 
     button {
@@ -252,12 +257,17 @@
     }
 
     body:not(.light-mode) #contact {
-      background-color: #1a237e;
+      background-color: #2e2a57;
     }
 
     /* Center content in #contact section */
     #contact {
       text-align: center;
+    }
+    
+    #contact .contact-form {
+      margin: 0 auto;
+      align-items: center;
     }
 
     .skills-grid .card {
@@ -297,8 +307,8 @@
       <a href="#about">About</a>
       <a href="#skills">Skills</a>
       <a href="#projects">Projects</a>
-      <a href="#cases">Business Cases</a>
       <a href="#domain">Chosen Domain</a>
+      <a href="#cases">Business Cases</a>
       <a href="#contact">Contact</a>
     </nav>
     <button id="theme-toggle" aria-label="Toggle theme"><span id="theme-icon">🌞</span></button>
@@ -486,6 +496,16 @@
     </div>
   </section>
 
+
+  <section id="domain">
+    <h2>Chosen Domain: Apple <i class="fab fa-apple"></i></h2>
+    <div class="card" style="max-width: 800px; margin: 0 auto; padding: 2rem; background: var(--card-color); border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.15);">
+      <p>Apple Inc. is a global leader in technology, renowned for its innovative products and services that have transformed the way we live and work. Founded in 1976 by Steve Jobs, Steve Wozniak, and Ronald Wayne, Apple has grown from a humble garage startup into one of the world's most valuable companies. Headquartered in Cupertino, California, Apple's product lineup includes iconic devices such as the iPhone, iPad, Mac, Apple Watch, and AirPods, complemented by a suite of services like the App Store, Apple Music, iCloud, and Apple TV+. The company's commitment to seamless integration across its hardware and software ecosystem, emphasis on user privacy, and continual innovation have solidified its position at the forefront of the tech industry.</p>
+    </div>
+  </section>
+
+
+
   <section id="cases">
     <section id="cases">
       <h2>Business Cases</h2>
@@ -518,12 +538,6 @@
       </div>
     </section>
   </section>
-
-  <section id="domain">
-    <h2>Chosen Domain</h2>
-    <p>I’ve chosen the <strong>Web Development</strong> domain to build responsive, user-friendly websites and web apps with modern tech stacks.</p>
-  </section>
-
   <section id="contact">
     <h2>Contact Me</h2>
     <form class="contact-form">
@@ -532,8 +546,21 @@
       <textarea rows="4" placeholder="Your Message" required></textarea>
       <button type="submit">Send</button>
     </form>
+  <div style="margin-top: 2rem;">
+    <a href="http://github.com/Vishal-R-Patil" target="_blank" style="margin: 0 1rem; color: var(--accent-color); font-size: 2rem;">
+      <i class="fab fa-github"></i>
+    </a>
+    <a href="https://www.linkedin.com/in/vishal-patil-92284126a" target="_blank" style="margin: 0 1rem; color: var(--accent-color); font-size: 2rem;">
+      <i class="fab fa-linkedin"></i>
+    </a>
+    <a href="mailto:vispat26@gmail.com" style="margin: 0 1rem; color: var(--accent-color); font-size: 2rem;">
+      <i class="fas fa-envelope"></i>
+    </a>
+    <a href="https://www.instagram.com/vishal.patil.26/" target="_blank" style="margin: 0 1rem; color: var(--accent-color); font-size: 2rem;">
+      <i class="fab fa-instagram"></i>
+    </a>
+  </div>
   </section>
-
   <script>
     // Reveal animation on scroll
     const sections = document.querySelectorAll("section");
@@ -558,6 +585,21 @@
     toggleBtn.addEventListener("click", () => {
       document.body.classList.toggle("light-mode");
       icon.textContent = document.body.classList.contains("light-mode") ? "🌙" : "🌞";
+    });
+    
+    // Handle contact form submission
+    const contactForm = document.querySelector('.contact-form');
+    contactForm.addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent default form submission
+
+      const name = contactForm.querySelector('input[type="text"]').value;
+      const email = contactForm.querySelector('input[type="email"]').value;
+      const message = contactForm.querySelector('textarea').value;
+
+      const subject = encodeURIComponent("New Contact Message from Portfolio");
+      const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
+
+      window.location.href = `mailto:vispat26@gmail.com?subject=${subject}&body=${body}`;
     });
   </script>
 </body>
