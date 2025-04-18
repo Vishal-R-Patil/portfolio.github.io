@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vishal's Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
   <style>
     :root {
       --bg-color: #0f0f0f;
@@ -90,11 +91,15 @@
       padding-block-start: 0 !important;
       scroll-margin-top: 80px;
     }
-    
-    #projects {
-      scroll-margin-top: 24px;
+    #skills {
+      scroll-margin-top: 23px;
     }
-    
+    #projects {
+      scroll-margin-top: 23px;
+    }
+    #cases{
+      scroll-margin-top:23px;
+    }
     section.reveal {
       opacity: 1;
       transform: translateY(0);
@@ -120,7 +125,7 @@
       list-style: square inside;
     }
 
-    .projects-grid, .cases-grid {
+    .projects-grid, .cases-grid, .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 1.5rem;
@@ -132,6 +137,12 @@
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
+    }
+
+    .card img {
+      width: 40px;
+      height: 40px;
+      margin-bottom: 0.5rem;
     }
 
     .card:hover {
@@ -183,13 +194,28 @@
       margin: 0 auto 1rem auto;
     }
     
+    #about p {
+      font-size: 1.1em;
+      margin-bottom: 2rem;
+    }
+    #education {
+      background-color: #e0f7fa; /* Light teal to complement About Me */
+      padding: 2rem 2rem;
+      border-radius: 12px;
+    }
+    
+    #about h2 {
+      font-size: 2.2rem;
+      text-decoration: underline;
+    }
+    
     /* Light mode background colors */
     body.light-mode #skills {
       background-color: #d0ebff; /* new light blue shade */
     }
     
     body.light-mode #projects {
-      background-color: #fce4ec; /* light pink */
+      background-color: #f5f5f5; /* Light grey for Projects section */
     }
     
     body.light-mode #cases {
@@ -233,6 +259,34 @@
     #contact {
       text-align: center;
     }
+
+    .skills-grid .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      border-radius: 12px;
+      background: var(--card-color);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .skills-grid .card i {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+    }
+
+    .skills-grid .card:hover {
+      transform: scale(1.05);
+    }
+    
+    .projects-grid .card i {
+      font-size: 2rem;
+      color: var(--accent-color);
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
 
@@ -253,55 +307,179 @@
   <section id="about">
     <h2>About Me</h2>
     <img src="assets/vishal_photo.jpeg" alt="Vishal R Patil" style="width: 220px; height: 220px; border-radius: 50%; object-fit: cover;" />
-    <p>I'm Vishal R Patil, currently studying in the 6th semester of the Computer Science department at KLE Technological University, Hubballi. I'm an enthusiastic learner, keen on impacting the world in a positive way. I’m a passionate developer building sleek websites and smart solutions — I love mixing creativity with functionality to make cool digital stuff.</p>
+  <p>I'm Vishal R Patil, currently studying in the 6th semester of the Computer Science department at KLE Technological University, Hubballi. I'm an enthusiastic learner, keen on impacting the world in a positive way. I’m a passionate developer building sleek websites and smart solutions — I love mixing creativity with functionality to make cool digital stuff.</p>
+    <div class="card" style="max-width: 600px; margin: 0 auto; padding: 1.5rem; background: var(--card-color); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+      <h3 style="color: var(--accent-color);">Education</h3>
+      <p><strong>Institution:</strong> KLE Technological University, Hubballi</p>
+      <p><strong>Degree:</strong> Bachelor of Engineering in Computer Science</p>
+      <p><strong>Batch:</strong> 2026</p>
+      <p><strong>CGPA:</strong> 9.16</p>
+    </div>
   </section>
 
+
+
   <section id="skills">
-    <h2>Skills</h2>
-    <ul>
-      <li>HTML, CSS, JavaScript</li>
-      <li>React & Tailwind CSS</li>
-      <li>Git, GitHub, and Agile Methods</li>
-      <li>Basic UI/UX Design</li>
-    </ul>
+    <h2>Technical Skills</h2>
+    <div class="skills-grid">
+      <div class="card">
+        <i class="fab fa-html5"></i>
+        <div>HTML</div>
+      </div>
+      <div class="card">
+        <i class="fab fa-css3-alt"></i>
+        <div>CSS</div>
+      </div>
+      <div class="card">
+        <i class="fab fa-js"></i>
+        <div>JavaScript</div>
+      </div>
+      <div class="card">
+        <i class="fab fa-react"></i>
+        <div>React.js</div>
+      </div>
+      <div class="card">
+        <i class="fab fa-node"></i>
+        <div>Node.js</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-database"></i>
+        <div>MongoDB</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-database"></i>
+        <div>MySQL</div>
+      </div>
+      <div class="card">
+        <i class="fab fa-python"></i>
+        <div>Python</div>
+      </div>
+      <div class="card">
+        <i class="fab fa-github"></i>
+        <div>GitHub</div>
+      </div>
+      <div class="card">
+        <i class="fab fa-git"></i>
+        <div>Git</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-c"></i>
+        <div>C</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-copyright"></i>
+        <div>C++</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-eye"></i>
+        <div>OpenCV</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-crosshairs"></i>
+        <div>YOLO</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-fire"></i>
+        <div>PyTorch</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-brain"></i>
+        <div>Scikit-learn</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-plus-square"></i>
+        <div>NumPy</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-chart-bar"></i>
+        <div>Pandas</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-chart-pie"></i>
+        <div>Seaborn</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-cubes"></i>
+        <div>wxWidgets</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="other-skills">
+    <h2>Professional & Interpersonal Skills</h2>
+    <div class="skills-grid">
+      <div class="card">
+        <i class="fas fa-brain"></i>
+        <div>Problem Solving</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-calculator"></i>
+        <div>Mathematical Reasoning</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-search"></i>
+        <div>Logical Reasoning</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-user-tie"></i>
+        <div>Leadership</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-microphone"></i>
+        <div>Public Speaking</div>
+      </div>
+      <div class="card">
+        <i class="fas fa-question-circle"></i>
+        <div>Question Forming & Testing</div>
+      </div>
+    </div>
   </section>
 
   <section id="projects">
     <h2>Projects</h2>
     <div class="projects-grid">
       <div class="card">
+        <i class="fas fa-route"></i>
         <h3>Health Camp Travel Optimisation (DSA)</h3>
         <p>Used algorithms like Dijkstra's and Kruskal's to optimize the route a doctor takes for health camps based on distances between cities.</p>
       </div>
       <div class="card">
+        <i class="fas fa-chart-line"></i>
         <h3>Phone Addiction Analysis (EDA)</h3>
         <p>Collected real-time data and analyzed the severity of phone addiction among students using questionnaire-based metrics.</p>
       </div>
       <div class="card">
+        <i class="fas fa-car"></i>
         <h3>Car Rental Service</h3>
         <p>A Web Tech project creating a full-featured website platform for renting and buying cars.</p>
       </div>
       <div class="card">
+        <i class="fas fa-university"></i>
         <h3>Temple Revival Website</h3>
         <p>Reconnecting migrated individuals to their ancestral temples, enabling donations, organizing events, and maintaining temple records.</p>
       </div>
       <div class="card">
+        <i class="fas fa-chart-line"></i>
         <h3>WIDS 2024 Metastatic Cancer Detection</h3>
         <p>An EDA project focused on analyzing and identifying patterns for cancer detection from the WIDS 2024 LUNA 16 dataset.</p>
       </div>
       <div class="card">
+        <i class="fas fa-calculator"></i>
         <h3>Mess and Hostel Fee Management + CGPA Calculator</h3>
         <p>A C++ GUI app built for managing hostel and mess fees alongside a CGPA calculator.</p>
       </div>
       <div class="card">
+        <i class="fas fa-hospital"></i>
         <h3>Hospital Management System</h3>
         <p>A full-stack website allowing patients to book appointments, nurses to manage them, and doctors to view and update schedules.</p>
       </div>
       <div class="card">
+        <i class="fas fa-robot"></i>
         <h3>Disease Classification (ML)</h3>
         <p>Improved disease classification accuracy using a hybrid CNN-RNN (LSTM) model.</p>
       </div>
       <div class="card">
+        <i class="fas fa-shield-alt"></i>
         <h3>Weapon Detection using YOLOv8</h3>
         <p>A computer vision project using YOLOv8 for real-time weapon detection.</p>
       </div>
@@ -309,17 +487,36 @@
   </section>
 
   <section id="cases">
-    <h2>Business Cases</h2>
-    <div class="cases-grid">
-      <div class="card">
-        <h3>Online Learning Platform</h3>
-        <p>Developed a prototype for a platform enabling interactive and self-paced learning using modern UI elements.</p>
+    <section id="cases">
+      <h2>Business Cases</h2>
+      <div class="cases-grid">
+        <div class="card">
+          <i class="fas fa-robot"></i>
+          <h3>Artificial Intelligence Technologies</h3>
+          <p>Apple is building a new advanced manufacturing facility in Houston for Apple Intelligence servers and expanding data centers across the U.S. with Private Cloud Compute for secure AI processing. This shows how Apple is making big moves in AI while keeping privacy locked in.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-industry"></i>
+          <h3>Advanced Manufacturing Capabilities</h3>
+          <p>With its Advanced Manufacturing Fund doubled to $10B, Apple’s investing in U.S. production. A 250,000 sq. ft. Houston facility is on the way, creating thousands of jobs and strengthening in-house AI hardware manufacturing.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-microchip"></i>
+          <h3>Silicon Engineering and Chip Design</h3>
+          <p>Apple’s deep into custom chip R&D with its M-series processors, working on next-gen AI-friendly silicon. It’s also supporting domestic chip manufacturing in Arizona to lower supply chain risks and boost U.S. tech leadership.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-users-cog"></i>
+          <h3>Geographic Expansion and Workforce Development</h3>
+          <p>Apple’s setting up shop across states like Texas, Michigan, and California — hiring 20,000+ new people, mostly for R&D in AI, software, and silicon engineering to drive innovation across its ecosystem.</p>
+        </div>
+        <div class="card">
+          <i class="fas fa-flask"></i>
+          <h3>Research and Development Infrastructure</h3>
+          <p>Apple’s pumping funds into R&D for silicon, software, and AI — powering its product roadmap with devices like the iPhone SE 4, new iPads, and MacBooks equipped with advanced processors and smarter capabilities.</p>
+        </div>
       </div>
-      <div class="card">
-        <h3>E-commerce Enhancement</h3>
-        <p>Suggested and implemented improvements to streamline UX and boost sales conversion by 20% for a fictional store.</p>
-      </div>
-    </div>
+    </section>
   </section>
 
   <section id="domain">
