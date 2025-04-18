@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vishal's Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-color: #0f0f0f;
+      --text-color: #f2f2f2;
+      --card-color: #1f1f1f;
+      --accent-color: #6c63ff;
+    }
+
+    html {
+      scroll-padding-top: 80px;
+    }
+    
+    body.light-mode #about {
+      background-color: #e0f7fa; /* Light teal for a fresh vibe */
+    }
+
+    body.light-mode {
+      --bg-color: #fff0f5; /* Lavender blush */
+      --text-color: #2d2d2d;
+      --card-color: #ffffff;
+      --accent-color: #4682b4; /* Steel Blue */
+    }
+
+    body {
+      text-align: center;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      scroll-behavior: smooth;
+      transition: background 0.3s, color 0.3s;
+      font-size: 18px; /* Increased font size */
+    }
+
+    header {
+      background: var(--card-color);
+      padding: 1rem 2rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    nav a {
+      color: var(--text-color);
+      margin: 0 1rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    section {
+      padding: 0.5rem 2rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    
+    #about {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+      margin-block-start: 0 !important;
+      padding-block-start: 0 !important;
+      scroll-margin-top: 80px;
+    }
+    
+    #projects {
+      scroll-margin-top: 24px;
+    }
+    
+    section.reveal {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    h1, h2 {
+      margin-bottom: 1rem;
+      color: var(--accent-color);
+    }
+    
+    section h2 {
+      text-align: center;
+    }
+
+    p, li {
+      line-height: 1.8;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    ul {
+      list-style: square inside;
+    }
+
+    .projects-grid, .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--card-color);
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      max-width: 600px;
+    }
+
+    input, textarea {
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 0.75rem;
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #5848c2;
+    }
+
+    /* 🌞/🌙 icon toggle button */
+    #theme-toggle {
+      background: transparent;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+
+    #theme-toggle:hover {
+      transform: rotate(180deg);
+    }
+
+    #about img {
+      display: block;
+      margin: 0 auto 1rem auto;
+    }
+    
+    /* Light mode background colors */
+    body.light-mode #skills {
+      background-color: #d0ebff; /* new light blue shade */
+    }
+    
+    body.light-mode #projects {
+      background-color: #fce4ec; /* light pink */
+    }
+    
+    body.light-mode #cases {
+      background-color: #fff3e0; /* light orange */
+    }
+    
+    body.light-mode #domain {
+      background-color: #e8f5e9; /* light green */
+    }
+    
+    body.light-mode #contact {
+      background-color: #ede7f6; /* light purple */
+    }
+
+    /* Center content in #contact section */
+    #contact {
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body class="light-mode">
+  <header>
+    <h1>Vishal</h1>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#cases">Business Cases</a>
+      <a href="#domain">Chosen Domain</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button id="theme-toggle" aria-label="Toggle theme"><span id="theme-icon">🌞</span></button>
+  </header>
+
+  <section id="about">
+    <h2>About Me</h2>
+    <img src="vishal_photo.jpeg" alt="Vishal R Patil" style="width: 220px; height: 220px; border-radius: 50%; object-fit: cover;" />
+    <p>I'm Vishal R Patil, currently studying in the 6th semester of the Computer Science department at KLE Technological University, Hubballi. I'm an enthusiastic learner, keen on impacting the world in a positive way. I’m a passionate developer building sleek websites and smart solutions — I love mixing creativity with functionality to make cool digital stuff.</p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <ul>
+      <li>HTML, CSS, JavaScript</li>
+      <li>React & Tailwind CSS</li>
+      <li>Git, GitHub, and Agile Methods</li>
+      <li>Basic UI/UX Design</li>
+    </ul>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="card">
+        <h3>Health Camp Travel Optimisation (DSA)</h3>
+        <p>Used algorithms like Dijkstra's and Kruskal's to optimize the route a doctor takes for health camps based on distances between cities.</p>
+      </div>
+      <div class="card">
+        <h3>Phone Addiction Analysis (EDA)</h3>
+        <p>Collected real-time data and analyzed the severity of phone addiction among students using questionnaire-based metrics.</p>
+      </div>
+      <div class="card">
+        <h3>Car Rental Service</h3>
+        <p>A Web Tech project creating a full-featured website platform for renting and buying cars.</p>
+      </div>
+      <div class="card">
+        <h3>Temple Revival Website</h3>
+        <p>Reconnecting migrated individuals to their ancestral temples, enabling donations, organizing events, and maintaining temple records.</p>
+      </div>
+      <div class="card">
+        <h3>WIDS 2024 Metastatic Cancer Detection</h3>
+        <p>An EDA project focused on analyzing and identifying patterns for cancer detection from the WIDS 2024 LUNA 16 dataset.</p>
+      </div>
+      <div class="card">
+        <h3>Mess and Hostel Fee Management + CGPA Calculator</h3>
+        <p>A C++ GUI app built for managing hostel and mess fees alongside a CGPA calculator.</p>
+      </div>
+      <div class="card">
+        <h3>Hospital Management System</h3>
+        <p>A full-stack website allowing patients to book appointments, nurses to manage them, and doctors to view and update schedules.</p>
+      </div>
+      <div class="card">
+        <h3>Disease Classification (ML)</h3>
+        <p>Improved disease classification accuracy using a hybrid CNN-RNN (LSTM) model.</p>
+      </div>
+      <div class="card">
+        <h3>Weapon Detection using YOLOv8</h3>
+        <p>A computer vision project using YOLOv8 for real-time weapon detection.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cases">
+    <h2>Business Cases</h2>
+    <div class="cases-grid">
+      <div class="card">
+        <h3>Online Learning Platform</h3>
+        <p>Developed a prototype for a platform enabling interactive and self-paced learning using modern UI elements.</p>
+      </div>
+      <div class="card">
+        <h3>E-commerce Enhancement</h3>
+        <p>Suggested and implemented improvements to streamline UX and boost sales conversion by 20% for a fictional store.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="domain">
+    <h2>Chosen Domain</h2>
+    <p>I’ve chosen the <strong>Web Development</strong> domain to build responsive, user-friendly websites and web apps with modern tech stacks.</p>
+  </section>
+
+  <section id="contact">
+    <h2>Contact Me</h2>
+    <form class="contact-form">
+      <input type="text" placeholder="Your Name" required />
+      <input type="email" placeholder="Your Email" required />
+      <textarea rows="4" placeholder="Your Message" required></textarea>
+      <button type="submit">Send</button>
+    </form>
+  </section>
+
+  <script>
+    // Reveal animation on scroll
+    const sections = document.querySelectorAll("section");
+
+    const revealOnScroll = () => {
+      const triggerBottom = window.innerHeight * 0.85;
+      sections.forEach(section => {
+        const top = section.getBoundingClientRect().top;
+        if (top < triggerBottom) {
+          section.classList.add("reveal");
+        }
+      });
+    };
+
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+
+    // Light/Dark mode toggle
+    const toggleBtn = document.getElementById("theme-toggle");
+    const icon = document.getElementById("theme-icon");
+
+    toggleBtn.addEventListener("click", () => {
+      document.body.classList.toggle("light-mode");
+      icon.textContent = document.body.classList.contains("light-mode") ? "🌙" : "🌞";
+    });
+  </script>
+</body>
+
+</html>
