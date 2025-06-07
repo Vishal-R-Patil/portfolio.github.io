@@ -65,34 +65,34 @@
       </ul>
       <h4>Pseudocode:</h4>
       <pre>
-// Input: A cost matrix 'C' of size n x n (where n is the number of agents/tasks)
+Input: A cost matrix 'C' of size n x n (where n is the number of agents/tasks)
 
-// Step 1: Row Reduction
+ Step 1: Row Reduction
 For each row 'i' from 1 to n:
   Find the minimum element 'min_row' in row 'i'.
   Subtract 'min_row' from all elements in row 'i'.
 
-// Step 2: Column Reduction
+Step 2: Column Reduction
 For each column 'j' from 1 to n:
   Find the minimum element 'min_col' in column 'j'.
   Subtract 'min_col' from all elements in column 'j'.
 
-// Step 3: Line Covering
+Step 3: Line Covering
 Cover all zeros in the matrix with the minimum number of horizontal and vertical lines.
   If the number of lines needed is equal to 'n', then optimal assignment found.
   Otherwise, proceed to Step 4.
 
-// Step 4: Iterative Improvement (if needed)
+Step 4: Iterative Improvement (if needed)
   Find the smallest uncovered element 'min_uncovered'.
   Subtract 'min_uncovered' from all uncovered elements.
   Add 'min_uncovered' to all elements covered twice by lines.
   Go back to Step 3.
 
-// Step 5: Find Optimal Assignment (after finding an optimal solution)
+Step 5: Find Optimal Assignment (after finding an optimal solution)
   Mark a zero in each row and column if only one zero remains in that row and column.
   The marked zeros indicate the optimal assignments.
 
-// Output: The optimal assignment and the minimum total cost.
+Output: The optimal assignment and the minimum total cost.
       </pre>
       <h4>Efficiency Analysis:</h4>
       <p>- Hungarian: <span class="formula">O(n³)</span> (~0.05 s for n=100).<br>- Knapsack DP: <span class="formula">O(nW)</span>, W optimizable via scaling to ~<span class="formula">O(n√W)</span>.</p>
