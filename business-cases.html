@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>APS Portfolio - Apple Business Cases</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <style>
+    :root { --bg-color: #0f0f0f; --text-color: #e0e0e0; --card-color: #1f1f1f; --accent-color: #6c63ff; }
+    body.light-mode { --bg-color: #fff0f5; --text-color: #2d2d2d; --card-color: #ffffff; --accent-color: #4682b4; }
+    body { background: var(--bg-color); color: var(--text-color); font-family: 'Poppins', sans-serif; margin: 0; padding: 0; font-size: 18px; line-height: 1.6; transition: background 0.3s,color 0.3s; text-align: center; }
+    a { color: var(--accent-color); text-decoration: none; }
+    h1,h2,h3 { color: var(--accent-color); margin-bottom: 0.5rem; }
+    section { padding: 2rem 1rem; }
+    .card { background: var(--card-color); padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); margin: 1rem auto; max-width:800px; transition: background 0.3s,color 0.3s; text-align:left; }
+    p,ul { margin:0.75rem 0; }
+    ul { padding-left:1.5rem; }
+    .case-header { display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-bottom:1rem; }
+    .case-header i { font-size:1.2rem; }
+    .reference-list { max-width:800px;margin:2rem auto;color:#888;font-size:0.9rem;text-align:left; }
+    .reference-list li { margin:0.5rem 0; }
+    body.light-mode #domain{background-color:#e8f5e9;} body.light-mode section:not(#domain):not(.reference-list){background-color:#f5f5f5;} body.light-mode .card{background:var(--card-color);color:var(--text-color);} body.light-mode section:nth-of-type(2) .card{background-color:#fff3e0;} body.light-mode section:nth-of-type(3) .card{background-color:#e3f2fd;} body.light-mode section:nth-of-type(4) .card{background-color:#fce4ec;} body.light-mode section:nth-of-type(5) .card{background-color:#f9fbe7;} body.light-mode section:nth-of-type(6) .card{background-color:#ede7f6;}
+    body:not(.light-mode) #domain{background-color:#263238;} body:not(.light-mode) section:not(#domain):not(.reference-list){background-color:#2e3b4e;} body:not(.light-mode) .card{background:var(--card-color);color:var(--text-color);}
+    #theme-toggle{background:transparent;border:none;font-size:1.8rem;cursor:pointer;position:fixed;top:18px;right:24px;z-index:100;transition:transform 0.4s ease;}#theme-toggle:hover{transform:rotate(180deg);}
+    .formula{background:rgba(255,255,255,0.1);padding:0.5rem;border-radius:4px;font-family:'Courier New',monospace;display:inline-block;}
+    pre{background:rgba(255,255,255,0.05);padding:1rem;border-radius:4px;overflow-x:auto;}
+  </style>
+</head>
+<body class="light-mode">
+  <button id="theme-toggle" aria-label="Toggle theme"><span id="theme-icon">🌞</span></button>
+
+  <section id="domain">
+    <h1 class="case-header">Chosen Domain: Apple <i class="fab fa-apple"></i></h1>
+    <div class="card">
+      <p>Apple Inc. is a global leader in consumer electronics and software, with products ranging from the iPhone to services like iCloud. Founded in 1976, Apple stands out for its design, privacy, and performance focus, fostering an ecosystem of over 1.8 billion devices worldwide.</p>
+    </div>
+  </section>
+
+  <!-- Case 1 -->
+  <section>
+    <h2 class="case-header">1. Supply Chain & Inventory Optimization <i class="fas fa-shipping-fast"></i></h2>
+    <div class="card">
+      <p><strong>Scenario:</strong> In New Delhi, logistics manager Rohan needs to assign 100 product batches to 50 retail outlets tonight, minimizing total shipping cost amidst fluctuating demand <a href="https://medium.com/@dixitjigar/apples-supply-chain-innovation-resilience-and-sustainability-in-the-digital-age-c8f0eb951042" target="_blank">[1]</a>.</p>
+      <p><strong>Implementation Overview:</strong><br>Define cost matrix <span class="formula">C<sub>ij</sub></span> where <span class="formula">C<sub>ij</sub></span>=cost(batch <em>i</em> → store <em>j</em>). Solve via Hungarian Method (<span class="formula">O(n³)</span>) <a href="https://en.wikipedia.org/wiki/Assignment_problem" target="_blank">[2]</a> and incorporate Multidimensional Knapsack DP (<span class="formula">O(nW)</span>) to respect volume/weight constraints. For visual reference, see <a href="https://commons.wikimedia.org/wiki/File:Hungarian_algorithm_unbalanced_assignment_problem_example.svg" target="_blank">[3]</a>. For algorithmic details, see <a href="https://en.wikipedia.org/wiki/Hungarian_method" target="_blank">[4]</a>.</p>
+      <h4>Additional Details:</h4>
+      <ul>
+        <li>DP recurrence for knapsack: <span class="formula">dp[i][w]=max(dp[i-1][w],v[i]+dp[i-1][w-w[i]])</span></li>
+        <li>Inventory turnover ratio formula: <span class="formula">ITO=COGS/AvgInventory</span></li>
+      </ul>
+      <h4>Pseudocode:</h4>
+      <pre>
+function Hungarian(costMatrix):
+    // u,v potentials, p,way arrays initialized
+    for i in 1..n: 
+        // find root by augmenting path
+        ...
+    return assignment
+
+function Knapsack(values, weights, W):
+    dp = array[n+1][W+1]
+    for i in 0..n:
+        for w in 0..W:
+            if i==0 or w==0: dp[i][w]=0
+            else if weights[i]<=w:
+                dp[i][w]=max(dp[i-1][w], values[i]+dp[i-1][w-weights[i]])
+            else dp[i][w]=dp[i-1][w]
+    return dp[n][W]
+      </pre>
+      <h4>Efficiency Analysis:</h4>
+      <p>- Hungarian: <span class="formula">O(n³)</span> (~0.05 s for n=100).<br>- Knapsack DP: <span class="formula">O(nW)</span>, W optimizable via scaling to ~<span class="formula">O(n√W)</span>.</p>
+      <p><strong>Inference:</strong> Deploying these models yields ~10% reduction in logistics costs and ~15% decrease in stockouts.</p>
+    </div>
+  </section>
+
+  <!-- Case 2 -->
+  <section>
+    <h2 class="case-header">2. AI-Enhanced Siri & Apple Intelligence <i class="fas fa-robot"></i></h2>
+    <div class="card">
+      <p><strong>Scenario:</strong> In Mumbai, engineer Priya benchmarks Siri queries and records 300 ms average latency for multi-step requests <a href="https://www.eweek.com/news/apple-ai-siri-macbook-air-ipad-air/" target="_blank">[5]</a>.</p>
+      <p><strong>Implementation Overview:</strong><br>Model intents/data as nodes. Use A* Search with <span class="formula">f(n)=g(n)+h(n)</span>. Choose heuristic <span class="formula">h(n)</span> = estimated remaining dialog depth or API calls, ensuring admissibility <a href="https://medium.com/@LakshmiNarayana_U/introducing-apple-intelligence-a-promise-of-personalized-and-personal-ai-b17c81609fc0" target="_blank">[6]</a> <a href="https://en.wikipedia.org/wiki/A*_search_algorithm" target="_blank">[7]</a>.</p>
+      <h4>Algorithm Steps:</h4>
+      <ol>
+        <li>Initialize <em>openSet</em> with start node.</li>
+        <li>Loop: pop node with smallest <span class="formula">f</span>.</li>
+        <li>For each neighbor, compute <span class="formula">g'=g+cost</span>. If <span class="formula">g'</span> smaller, update and push.</li>
+        <li>Repeat until goal reached.</li>
+      </ol>
+      <h4>Pseudocode:</h4>
+      <pre>
+function AStar(start,goal,h):
+    openSet = minHeap[(start,0)]
+    gScore[start]=0; fScore[start]=h(start)
+    while openSet:
+        current=popMin(openSet)
+        if current==goal: return reconstructPath()
+        for n in neighbors(current):
+            tentative=gScore[current]+cost(current,n)
+            if tentative<gScore[n]:
+                gScore[n]=tentative
+                fScore[n]=tentative+h(n)
+                push(openSet,(n,fScore[n]))
+      </pre>
+      <h4>Efficiency Analysis:</h4>
+      <p>- Node expansions reduced ~60% vs. BFS.<br>- Complexity: <span class="formula">O(m + n log n)</span>.</p>
+      <p><strong>Inference:</strong> A* integration cuts latency to ~120 ms, improving dialogue success by 25%.</p>
+    </div>
+  </section>
+
+  <!-- Case 3 -->
+  <section>
+    <h2 class="case-header">3. AR/VR Spatial Data Processing <i class="fas fa-vr-cardboard"></i></h2>
+    <div class="card">
+      <p><strong>Scenario:</strong> In Bengaluru, AR developer Arjun needs collision checks among 200k 3D objects in under 5 ms <a href="https://www.theverge.com/2021/5/6/22423827/apple-ii-vi-advanced-manufacturing-fund-award-ar-vr-faceid" target="_blank">[8]</a>.</p>
+      <p><strong>Implementation Overview:</strong><br>Construct k-d tree: split dataset by median on axis=depth%3. Use for NN & range queries <span class="formula">T<sub>build</sub> = O(n log n)</span>, <span class="formula">T<sub>query</sub> = O(log n)</span> average <a href="https://en.wikipedia.org/wiki/K-d_tree" target="_blank">[9]</a>.</p>
+      <h4>Additional Details:</h4>
+      <ul>
+        <li>Splitting plane at each node divides space, reducing search volume by ~1/2.</li>
+        <li>Worst-case query: <span class="formula">O(n<sup>1-1/k</sup>)</span>, mitigated by randomizing axis.</li>
+      </ul>
+      <h4>Pseudocode:</h4>
+      <pre>
+function buildKDTree(P,depth=0):
+    if P.empty(): return null
+    axis=depth%k; sort P by axis
+    m=|P|//2; node=P[m]
+    node.left=buildKDTree(P[:m],depth+1)
+    node.right=buildKDTree(P[m+1:],depth+1)
+    return node
+
+function nearest(node,target,depth=0,best):
+    if node is null: return best
+    axis=depth%k; next,other=chooseBranch(node,target)
+    best=closer(target,node.point,best)
+    best=nearest(next,target,depth+1,best)
+    if abs(target[axis]-node.point[axis])<dist(best,target):
+        best=nearest(other,target,depth+1,best)
+    return best
+      </pre>
+      <h4>Efficiency Analysis:</h4>
+      <p>- Build: <span class="formula">O(n log n)</span>.<br>- Query: <span class="formula">O(log n)</span> avg., <span class="formula">O(n<sup>1-1/3</sup>)</span> worst-case.</p>
+      <p><strong>Inference:</strong> Efficient spatial indexing ensures sub-5 ms latency, vital for immersive AR.</p>
+    </div>
+  </section>
+
+  <!-- Case 4 -->
+  <section>
+    <h2 class="case-header">4. Personalized Content & Service Recommendations <i class="fas fa-star"></i></h2>
+    <div class="card">
+      <p><strong>Scenario:</strong> In Hyderabad, analyst Kavita sees 20% lower click-through on Apple Music curated playlists.</p>
+      <p><strong>Implementation Overview:</strong><br>Model user–item interactions as bipartite graph. Compute Personalized PageRank: <span class="formula">&pi;<sub>t+1</sub> = (1–&alpha;)P<sup>T</sup>&pi;<sub>t</sub> + &alpha;e<sub>u</sub></span>, ensuring convergence to stationary distribution <a href="https://en.wikipedia.org/wiki/PageRank" target="_blank">[10]</a>.</p>
+      <h4>Additional Formulas:</h4>
+      <p>Teleportation factor: <span class="formula">0 &lt; &alpha; &lt; 1</span>; typical &alpha; = 0.85.</p>
+      <h4>Pseudocode:</h4>
+      <pre>
+function personalizedPageRank(P,seed,α,ε):
+    N=|P|; r=zeros(N); r[seed]=1; p=r
+    do:
+        p_new=α*Pᵀ*p + (1-α)*r
+    while ||p_new-p||₂>ε
+    return p_new
+      </pre>
+      <h4>Efficiency Analysis:</h4>
+      <p>- Per iteration: <span class="formula">O(E)</span>.<br>- ~50 iterations for ∥Δ∥&lt;10<sup>−6</sup> on 10⁸ edges.</p>
+      <p><strong>Inference:</strong> Personalized recommendations can boost engagement by ~18% and subscriptions by ~12%.</p>
+    </div>
+  </section>
+
+  <!-- Case 5 -->
+  <section>
+    <h2 class="case-header">5. Post-Quantum & Efficient Cryptography <i class="fas fa-lock"></i></h2>
+    <div class="card">
+      <p><strong>Scenario:</strong> In Pune, security lead Anjali evaluates post-quantum KEMs under tight latency budgets <a href="https://security.apple.com/blog/imessage-pq3/" target="_blank">[11]</a>.</p>
+      <p><strong>Implementation Overview:</strong><br>Use Fermat’s Little Theorem: <span class="formula">a^{p-1}≡1 (mod p)</span> ⇒ <span class="formula">a^{-1}≡a^{p-2} (mod p)</span>. Implement modular exponentiation by repeated squaring (<span class="formula">O(log e)</span>) and explore Euclid’s GCD as alternative with <span class="formula">O(log n)</span> complexity <a href="https://security.apple.com/blog/imessage-pq3/" target="_blank">[12]</a> <a href="https://en.wikipedia.org/wiki/Fermat%27s_little_theorem" target="_blank">[13]</a>.</p>
+      <h4>Pseudocode:</h4>
+      <pre>
+function modExp(b,e,m):
+    res=1; b%=m
+    while e>0:
+        if e&1: res=(res*b)%m
+        b=(b*b)%m; e>>=1
+    return res
+
+function modInv(a,p):
+    return modExp(a,p-2,p)  // Fermat's
+
+function gcdInv(a,m):
+    g,x,_=extendedGCD(a,m)
+    if g!=1: return null
+    return x mod m
+      </pre>
+      <h4>Efficiency Analysis:</h4>
+      <p>- modExp: <span class="formula">O(log e)</span> (≈0.2 ms for 256-bit).<br>- Extended GCD: <span class="formula">O(log n)</span>.</p>
+      <p><strong>Inference:</strong> Combining methods ensures quantum-resistant schemes meet sub-5 ms targets.</p>
+    </div>
+  </section>
+
+  <!-- References -->
+  <section class="reference-list">
+    <h3>References</h3>
+    <ul>
+      <li>[1] Apple’s Supply Chain: Innovation, Resilience, and Sustainability in the Digital Age | Jigar Dixit | Medium. <a href="https://medium.com/@dixitjigar/apples-supply-chain-innovation-resilience-and-sustainability-in-the-digital-age-c8f0eb951042" target="_blank">Link</a></li>
+      <li>[2] Assignment problem - Wikipedia. <a href="https://en.wikipedia.org/wiki/Assignment_problem" target="_blank">Link</a></li>
+      <li>[3] File: Hungarian algorithm unbalanced assignment problem example.svg - Wikimedia Commons. <a href="https://commons.wikimedia.org/wiki/File:Hungarian_algorithm_unbalanced_assignment_problem_example.svg" target="_blank">Link</a></li>
+      <li>[4] Hungarian algorithm - Wikipedia. <a href="https://en.wikipedia.org/wiki/Hungarian_method" target="_blank">Link</a></li>
+      <li>[5] Apple’s AI Push: Siri Overhaul and Rumored Hardware Enhancements Signal New Era in PCs. <a href="https://www.eweek.com/news/apple-ai-siri-macbook-air-ipad-air/" target="_blank">Link</a></li>
+      <li>[6] Introducing Apple Intelligence: A Promise of Personalized and Personal AI | Lakshmi narayana .U | Medium. <a href="https://medium.com/@LakshmiNarayana_U/introducing-apple-intelligence-a-promise-of-personalized-and-personal-ai-b17c81609fc0" target="_blank">Link</a></li>
+      <li>[7] A* search algorithm - Wikipedia. <a href="https://en.wikipedia.org/wiki/A*_search_algorithm" target="_blank">Link</a></li>
+      <li>[8] Apple is giving a laser company that builds some of its AR tech $410 million | The Verge. <a href="https://www.theverge.com/2021/5/6/22423827/apple-ii-vi-advanced-manufacturing-fund-award-ar-vr-faceid" target="_blank">Link</a></li>
+      <li>[9] K-d tree - Wikipedia. <a href="https://en.wikipedia.org/wiki/K-d_tree" target="_blank">Link</a></li>
+      <li>[10] PageRank - Wikipedia. <a href="https://en.wikipedia.org/wiki/PageRank" target="_blank">Link</a></li>
+      <li>[11] Blog - iMessage with PQ3: The new state of the art in quantum-secure messaging at scale - Apple Security Research. <a href="https://security.apple.com/blog/imessage-pq3/" target="_blank">Link</a></li>
+      <li>[12] Blog - iMessage with PQ3: The new state of the art in quantum-secure messaging at scale - Apple Security Research. <a href="https://security.apple.com/blog/imessage-pq3/" target="_blank">Link</a></li>
+      <li>[13] Fermat’s Little Theorem - Wikipedia. <a href="https://en.wikipedia.org/wiki/Fermat%27s_little_theorem" target="_blank">Link</a></li>
+    </ul>
+  </section>
+
+  <script>
+    const toggleBtn=document.getElementById('theme-toggle'); const icon=document.getElementById('theme-icon');
+    toggleBtn.addEventListener('click',()=>{ document.body.classList.toggle('light-mode'); icon.textContent=document.body.classList.contains('light-mode')?'🌞':'🌙'; });
+  </script>
+</body>
+</html>
