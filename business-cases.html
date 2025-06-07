@@ -28,6 +28,11 @@
   </style>
 </head>
 <body class="light-mode">
+  <a href="https://vishal-r-patil.github.io/portfolio.github.io/" style="position:fixed;top:18px;left:24px;z-index:101;text-decoration:none;">
+    <button style="background:var(--accent-color);color:#fff;border:none;border-radius:6px;padding:0.5em 1.2em;font-size:1rem;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,0.08);">
+      &larr; Home
+    </button>
+  </a>
   <button id="theme-toggle" aria-label="Toggle theme"><span id="theme-icon">🌞</span></button>
 
   <section id="domain">
@@ -43,6 +48,16 @@
     <div class="card">
       <p><strong>Scenario:</strong> In New Delhi, logistics manager Rohan needs to assign 100 product batches to 50 retail outlets tonight, minimizing total shipping cost amidst fluctuating demand <a href="https://medium.com/@dixitjigar/apples-supply-chain-innovation-resilience-and-sustainability-in-the-digital-age-c8f0eb951042" target="_blank">[1]</a>.</p>
       <p><strong>Implementation Overview:</strong><br>Define cost matrix <span class="formula">C<sub>ij</sub></span> where <span class="formula">C<sub>ij</sub></span>=cost(batch <em>i</em> → store <em>j</em>). Solve via Hungarian Method (<span class="formula">O(n³)</span>) <a href="https://en.wikipedia.org/wiki/Assignment_problem" target="_blank">[2]</a> and incorporate Multidimensional Knapsack DP (<span class="formula">O(nW)</span>) to respect volume/weight constraints. For visual reference, see <a href="https://commons.wikimedia.org/wiki/File:Hungarian_algorithm_unbalanced_assignment_problem_example.svg" target="_blank">[3]</a>. For algorithmic details, see <a href="https://en.wikipedia.org/wiki/Hungarian_method" target="_blank">[4]</a>.</p>
+      <!-- Business Case 1 Image -->
+      <div style="display: flex; justify-content: center; margin: 1.5rem 0;">
+        <figure style="margin:0;">
+          <img src="assets/bc-1.png" alt="Hungarian Algorithm Assignment Example" style="max-width:340px; border-radius:8px;">
+          <figcaption style="font-size:0.95em; color:#888; text-align:center;">
+            Assignment Problem Visualization<br>
+            <a href="https://medium.com/data-science/optimum-assignment-and-the-hungarian-algorithm-8b1027628028" target="_blank">[Image Ref]</a>
+          </figcaption>
+        </figure>
+      </div>
       <h4>Additional Details:</h4>
       <ul>
         <li>DP recurrence for knapsack: <span class="formula">dp[i][w]=max(dp[i-1][w],v[i]+dp[i-1][w-w[i]])</span></li>
@@ -50,25 +65,37 @@
       </ul>
       <h4>Pseudocode:</h4>
       <pre>
-function Hungarian(costMatrix):
-    // u,v potentials, p,way arrays initialized
-    for i in 1..n: 
-        // find root by augmenting path
-        ...
-    return assignment
+// Input: A cost matrix 'C' of size n x n (where n is the number of agents/tasks)
 
-function Knapsack(values, weights, W):
-    dp = array[n+1][W+1]
-    for i in 0..n:
-        for w in 0..W:
-            if i==0 or w==0: dp[i][w]=0
-            else if weights[i]<=w:
-                dp[i][w]=max(dp[i-1][w], values[i]+dp[i-1][w-weights[i]])
-            else dp[i][w]=dp[i-1][w]
-    return dp[n][W]
+// Step 1: Row Reduction
+For each row 'i' from 1 to n:
+  Find the minimum element 'min_row' in row 'i'.
+  Subtract 'min_row' from all elements in row 'i'.
+
+// Step 2: Column Reduction
+For each column 'j' from 1 to n:
+  Find the minimum element 'min_col' in column 'j'.
+  Subtract 'min_col' from all elements in column 'j'.
+
+// Step 3: Line Covering
+Cover all zeros in the matrix with the minimum number of horizontal and vertical lines.
+  If the number of lines needed is equal to 'n', then optimal assignment found.
+  Otherwise, proceed to Step 4.
+
+// Step 4: Iterative Improvement (if needed)
+  Find the smallest uncovered element 'min_uncovered'.
+  Subtract 'min_uncovered' from all uncovered elements.
+  Add 'min_uncovered' to all elements covered twice by lines.
+  Go back to Step 3.
+
+// Step 5: Find Optimal Assignment (after finding an optimal solution)
+  Mark a zero in each row and column if only one zero remains in that row and column.
+  The marked zeros indicate the optimal assignments.
+
+// Output: The optimal assignment and the minimum total cost.
       </pre>
       <h4>Efficiency Analysis:</h4>
-      <p>- Hungarian: <span class="formula">O(n³)</span> (~0.05 s for n=100).<br>- Knapsack DP: <span class="formula">O(nW)</span>, W optimizable via scaling to ~<span class="formula">O(n√W)</span>.</p>
+      <p>- Hungarian: <span class="formula">O(n³)</span> (~0.05 s for n=100).<br>- Knapsack DP: <span class="formula">O(nW)</span>, W optimizable via scaling to ~<span class="formula">O(n√W)</span>.</p>
       <p><strong>Inference:</strong> Deploying these models yields ~10% reduction in logistics costs and ~15% decrease in stockouts.</p>
     </div>
   </section>
@@ -79,6 +106,16 @@ function Knapsack(values, weights, W):
     <div class="card">
       <p><strong>Scenario:</strong> In Mumbai, engineer Priya benchmarks Siri queries and records 300 ms average latency for multi-step requests <a href="https://www.eweek.com/news/apple-ai-siri-macbook-air-ipad-air/" target="_blank">[5]</a>.</p>
       <p><strong>Implementation Overview:</strong><br>Model intents/data as nodes. Use A* Search with <span class="formula">f(n)=g(n)+h(n)</span>. Choose heuristic <span class="formula">h(n)</span> = estimated remaining dialog depth or API calls, ensuring admissibility <a href="https://medium.com/@LakshmiNarayana_U/introducing-apple-intelligence-a-promise-of-personalized-and-personal-ai-b17c81609fc0" target="_blank">[6]</a> <a href="https://en.wikipedia.org/wiki/A*_search_algorithm" target="_blank">[7]</a>.</p>
+      <!-- Business Case 2 Image -->
+      <div style="display: flex; justify-content: center; margin: 1.5rem 0;">
+        <figure style="margin:0;">
+          <img src="assets/bc-2.gif" alt="A* Algorithm Animation" style="max-width:340px; border-radius:8px;">
+          <figcaption style="font-size:0.95em; color:#888; text-align:center;">
+            A* Algorithm Animation<br>
+            <a href="https://www.reddit.com/r/gifs/comments/2kgdvi/a_algorithm_animation/" target="_blank">[Image Ref]</a>
+          </figcaption>
+        </figure>
+      </div>
       <h4>Algorithm Steps:</h4>
       <ol>
         <li>Initialize <em>openSet</em> with start node.</li>
@@ -113,6 +150,16 @@ function AStar(start,goal,h):
     <div class="card">
       <p><strong>Scenario:</strong> In Bengaluru, AR developer Arjun needs collision checks among 200k 3D objects in under 5 ms <a href="https://www.theverge.com/2021/5/6/22423827/apple-ii-vi-advanced-manufacturing-fund-award-ar-vr-faceid" target="_blank">[8]</a>.</p>
       <p><strong>Implementation Overview:</strong><br>Construct k-d tree: split dataset by median on axis=depth%3. Use for NN & range queries <span class="formula">T<sub>build</sub> = O(n log n)</span>, <span class="formula">T<sub>query</sub> = O(log n)</span> average <a href="https://en.wikipedia.org/wiki/K-d_tree" target="_blank">[9]</a>.</p>
+      <!-- Business Case 3 Image -->
+      <div style="display: flex; justify-content: center; margin: 1.5rem 0;">
+        <figure style="margin:0;">
+          <img src="assets/bc-3.gif" alt="KD-Tree Animation" style="max-width:340px; border-radius:8px;">
+          <figcaption style="font-size:0.95em; color:#888; text-align:center;">
+            K-d Tree Animation<br>
+            <a href="https://commons.wikimedia.org/wiki/File:Kdtree_animation.gif" target="_blank">[Image Ref]</a>
+          </figcaption>
+        </figure>
+      </div>
       <h4>Additional Details:</h4>
       <ul>
         <li>Splitting plane at each node divides space, reducing search volume by ~1/2.</li>
@@ -123,7 +170,7 @@ function AStar(start,goal,h):
 function buildKDTree(P,depth=0):
     if P.empty(): return null
     axis=depth%k; sort P by axis
-    m=|P|//2; node=P[m]
+    m=|P|/2; node=P[m]
     node.left=buildKDTree(P[:m],depth+1)
     node.right=buildKDTree(P[m+1:],depth+1)
     return node
@@ -149,16 +196,30 @@ function nearest(node,target,depth=0,best):
     <div class="card">
       <p><strong>Scenario:</strong> In Hyderabad, analyst Kavita sees 20% lower click-through on Apple Music curated playlists.</p>
       <p><strong>Implementation Overview:</strong><br>Model user–item interactions as bipartite graph. Compute Personalized PageRank: <span class="formula">&pi;<sub>t+1</sub> = (1–&alpha;)P<sup>T</sup>&pi;<sub>t</sub> + &alpha;e<sub>u</sub></span>, ensuring convergence to stationary distribution <a href="https://en.wikipedia.org/wiki/PageRank" target="_blank">[10]</a>.</p>
+      <!-- Business Case 4 Image -->
+      <div style="display: flex; justify-content: center; margin: 1.5rem 0;">
+        <figure style="margin:0;">
+          <img src="assets/bc-4.gif" alt="Recommendation Graph Animation" style="max-width:340px; border-radius:8px;">
+          <figcaption style="font-size:0.95em; color:#888; text-align:center;">
+            Recommendation Graph Animation<br>
+            <a href="https://commons.wikimedia.org/wiki/File:Kdtree_animation.gif" target="_blank">[Image Ref]</a>
+          </figcaption>
+        </figure>
+      </div>
       <h4>Additional Formulas:</h4>
       <p>Teleportation factor: <span class="formula">0 &lt; &alpha; &lt; 1</span>; typical &alpha; = 0.85.</p>
       <h4>Pseudocode:</h4>
       <pre>
-function personalizedPageRank(P,seed,α,ε):
-    N=|P|; r=zeros(N); r[seed]=1; p=r
+function personalizedPageRank(P, seed, α, ε):
+    N = |P|
+    r = zeros(N)
+    r[seed] = 1
+    p = r
     do:
-        p_new=α*Pᵀ*p + (1-α)*r
-    while ||p_new-p||₂>ε
-    return p_new
+        p<sub>new</sub> = α * Pᵀ * p + (1-α) * r
+        swap(p, p<sub>new</sub>)
+    while ||p - p<sub>new</sub>||₂ &gt; ε
+    return p
       </pre>
       <h4>Efficiency Analysis:</h4>
       <p>- Per iteration: <span class="formula">O(E)</span>.<br>- ~50 iterations for ∥Δ∥&lt;10<sup>−6</sup> on 10⁸ edges.</p>
@@ -171,7 +232,7 @@ function personalizedPageRank(P,seed,α,ε):
     <h2 class="case-header">5. Post-Quantum & Efficient Cryptography <i class="fas fa-lock"></i></h2>
     <div class="card">
       <p><strong>Scenario:</strong> In Pune, security lead Anjali evaluates post-quantum KEMs under tight latency budgets <a href="https://security.apple.com/blog/imessage-pq3/" target="_blank">[11]</a>.</p>
-      <p><strong>Implementation Overview:</strong><br>Use Fermat’s Little Theorem: <span class="formula">a^{p-1}≡1 (mod p)</span> ⇒ <span class="formula">a^{-1}≡a^{p-2} (mod p)</span>. Implement modular exponentiation by repeated squaring (<span class="formula">O(log e)</span>) and explore Euclid’s GCD as alternative with <span class="formula">O(log n)</span> complexity <a href="https://security.apple.com/blog/imessage-pq3/" target="_blank">[12]</a> <a href="https://en.wikipedia.org/wiki/Fermat%27s_little_theorem" target="_blank">[13]</a>.</p>
+      <p><strong>Implementation Overview:</strong><br>Use Fermat's Little Theorem: <span class="formula">a^{p-1}≡1 (mod p)</span> ⇒ <span class="formula">a^{-1}≡a^{p-2} (mod p)</span>. Implement modular exponentiation by repeated squaring (<span class="formula">O(log e)</span>) and explore Euclid’s GCD as alternative with <span class="formula">O(log n)</span> complexity <a href="https://security.apple.com/blog/imessage-pq3/" target="_blank">[12]</a> <a href="https://en.wikipedia.org/wiki/Fermat%27s_little_theorem" target="_blank">[13]</a>.</p>
       <h4>Pseudocode:</h4>
       <pre>
 function modExp(b,e,m):
@@ -190,7 +251,7 @@ function gcdInv(a,m):
     return x mod m
       </pre>
       <h4>Efficiency Analysis:</h4>
-      <p>- modExp: <span class="formula">O(log e)</span> (≈0.2 ms for 256-bit).<br>- Extended GCD: <span class="formula">O(log n)</span>.</p>
+      <p>- modExp: <span class="formula">O(log e)</span> (≈0.2 ms for 256-bit).<br>- Extended GCD: <span class="formula">O(log n)</span>.</p>
       <p><strong>Inference:</strong> Combining methods ensures quantum-resistant schemes meet sub-5 ms targets.</p>
     </div>
   </section>
@@ -199,11 +260,11 @@ function gcdInv(a,m):
   <section class="reference-list">
     <h3>References</h3>
     <ul>
-      <li>[1] Apple’s Supply Chain: Innovation, Resilience, and Sustainability in the Digital Age | Jigar Dixit | Medium. <a href="https://medium.com/@dixitjigar/apples-supply-chain-innovation-resilience-and-sustainability-in-the-digital-age-c8f0eb951042" target="_blank">Link</a></li>
+      <li>[1] Apple's Supply Chain: Innovation, Resilience, and Sustainability in the Digital Age | Jigar Dixit | Medium. <a href="https://medium.com/@dixitjigar/apples-supply-chain-innovation-resilience-and-sustainability-in-the-digital-age-c8f0eb951042" target="_blank">Link</a></li>
       <li>[2] Assignment problem - Wikipedia. <a href="https://en.wikipedia.org/wiki/Assignment_problem" target="_blank">Link</a></li>
       <li>[3] File: Hungarian algorithm unbalanced assignment problem example.svg - Wikimedia Commons. <a href="https://commons.wikimedia.org/wiki/File:Hungarian_algorithm_unbalanced_assignment_problem_example.svg" target="_blank">Link</a></li>
       <li>[4] Hungarian algorithm - Wikipedia. <a href="https://en.wikipedia.org/wiki/Hungarian_method" target="_blank">Link</a></li>
-      <li>[5] Apple’s AI Push: Siri Overhaul and Rumored Hardware Enhancements Signal New Era in PCs. <a href="https://www.eweek.com/news/apple-ai-siri-macbook-air-ipad-air/" target="_blank">Link</a></li>
+      <li>[5] Apple's AI Push: Siri Overhaul and Rumored Hardware Enhancements Signal New Era in PCs. <a href="https://www.eweek.com/news/apple-ai-siri-macbook-air-ipad-air/" target="_blank">Link</a></li>
       <li>[6] Introducing Apple Intelligence: A Promise of Personalized and Personal AI | Lakshmi narayana .U | Medium. <a href="https://medium.com/@LakshmiNarayana_U/introducing-apple-intelligence-a-promise-of-personalized-and-personal-ai-b17c81609fc0" target="_blank">Link</a></li>
       <li>[7] A* search algorithm - Wikipedia. <a href="https://en.wikipedia.org/wiki/A*_search_algorithm" target="_blank">Link</a></li>
       <li>[8] Apple is giving a laser company that builds some of its AR tech $410 million | The Verge. <a href="https://www.theverge.com/2021/5/6/22423827/apple-ii-vi-advanced-manufacturing-fund-award-ar-vr-faceid" target="_blank">Link</a></li>
@@ -211,7 +272,11 @@ function gcdInv(a,m):
       <li>[10] PageRank - Wikipedia. <a href="https://en.wikipedia.org/wiki/PageRank" target="_blank">Link</a></li>
       <li>[11] Blog - iMessage with PQ3: The new state of the art in quantum-secure messaging at scale - Apple Security Research. <a href="https://security.apple.com/blog/imessage-pq3/" target="_blank">Link</a></li>
       <li>[12] Blog - iMessage with PQ3: The new state of the art in quantum-secure messaging at scale - Apple Security Research. <a href="https://security.apple.com/blog/imessage-pq3/" target="_blank">Link</a></li>
-      <li>[13] Fermat’s Little Theorem - Wikipedia. <a href="https://en.wikipedia.org/wiki/Fermat%27s_little_theorem" target="_blank">Link</a></li>
+      <li>[13] Fermat's Little Theorem - Wikipedia. <a href="https://en.wikipedia.org/wiki/Fermat%27s_little_theorem" target="_blank">Link</a></li>
+      <li>[14] Assignment Problem Visualization Image. <a href="https://medium.com/data-science/optimum-assignment-and-the-hungarian-algorithm-8b1027628028" target="_blank">Link</a></li>
+      <li>[15] A* Algorithm Animation GIF. <a href="https://www.reddit.com/r/gifs/comments/2kgdvi/a_algorithm_animation/" target="_blank">Link</a></li>
+      <li>[16] K-d Tree Animation GIF. <a href="https://commons.wikimedia.org/wiki/File:Kdtree_animation.gif" target="_blank">Link</a></li>
+      <li>[17] Recommendation Graph Animation GIF. <a href="https://commons.wikimedia.org/wiki/File:Kdtree_animation.gif" target="_blank">Link</a></li>
     </ul>
   </section>
 

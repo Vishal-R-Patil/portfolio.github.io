@@ -1,0 +1,5 @@
+bc-1 :https://medium.com/data-science/optimum-assignment-and-the-hungarian-algorithm-8b1027628028
+
+bc-2:https://www.reddit.com/r/gifs/comments/2kgdvi/a_algorithm_animation/
+
+bc-4:https://commons.wikimedia.org/wiki/File:Kdtree_animation.gif
